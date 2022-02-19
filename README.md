@@ -32,9 +32,14 @@ display.set_caption("Пинг понг")
 ping1 = Player('wall.png',10,100,50,100,7)
 ping2 = Player('wall.png',650,100,50,100,7)
 boll = Player('tenis2.jpg',300,300,100,50,3)
+font.init()
+font = font.Font(None, 70)
+win = font.render('Player1 Won', True, (215,215,0))
+win2 = font.render('Player2 Won ', True, (215,0,0))
 clock = time.Clock()
 FPS = 100
-
+speed_x = 3
+speed_y = 3
 
 
 finish = False
@@ -50,6 +55,22 @@ while game:
         ping1.reset()
         ping2.reset()
         boll.reset()
+        boll.rect.x += speed_x
+        boll.rect.y += speed_y
+        if boll.rect.y > 450 or boll.rect.y < 0:
+            speed_y *= -1
+        if sprite.collide_rect(ping1, boll) or sprite.collide_rect(ping2, boll):
+            speed_x *= -1
+        if boll.rect.x > 680:
+            window.blit(win, (200, 200))
+        if boll.rect.x < 5:
+            window.blit(win2, (200, 200))
+        
+
+           
+
+         
+            
 
         
         display.update()
